@@ -3,7 +3,7 @@ from tqdm import tqdm
 from .search_text import search_for_phrase
 from .document_marking import DocumentMarking
 from .ocr_processer import OCRProcessor
-from tmpapp.tmpdatasource.source import DataSource
+from .tmpdatasource.source import DataSource
 
 
 DEFAULT_DATA_SOURCE = DataSource()
