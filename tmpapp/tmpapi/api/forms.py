@@ -1,5 +1,7 @@
 from django import forms
 
+from tmpapp.tmpdatasource import DataSource
+
 
 MOCK_CHOICES = (
 	('a', 'A'),
@@ -10,7 +12,7 @@ MOCK_CHOICES = (
 
 class DocumentForm(forms.Form):
     document = forms.FileField()
-    categories = forms.MultipleChoiceField(choices=MOCK_CHOICES)
+    categories = forms.MultipleChoiceField(choices=DataSource().get_categories())
 
 
 class CredentialsForm(forms.Form):
