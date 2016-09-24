@@ -6,17 +6,27 @@ class WrongMessageException(Exception):
 
 
 class DocumentMarking:
-    def mark(self, image_object, position, message):
+    def mark(self, image_object, position, ratio):
         """
-
         :param image_object: Image as object in image extension not in pdf.
         :param position: Position [(y0,x0),(y1,x1)] ex. ((2085, 153), (2243, 179)).
-        :param message: ERROR or WARNING.
+        :param message: 0.6-0.7% - WARNING, 0.7-0.8 - ERROR, 0.8> CRITICAL_ERROR.
         :return: Image objects with marked rectangle as clause message.
         """
+        message = self._ratio_to_message(ratio)
         im_reduced = self._reduce_opacity(image_object, 0.8)
         marked = self._imprint(im_reduced, position, message)
         return marked
+
+    @staticmethod
+    def _ratio_to_message(ratio):
+        assert ratio > 0.6 and ratio <= 1
+        if ratio < 0.7:
+            return 'WARNING'
+        elif ratio < 0.8:
+            return 'ERROR'
+        else:
+            return 'CRITICAL_ERROR'
 
     @staticmethod
     def _reduce_opacity(im, opacity):
@@ -51,6 +61,8 @@ class MessageFactory:
             return ErrorColor()
         elif message == 'WARNING':
             return WarningColor()
+        elif message == 'CRITICAL_ERROR':
+            return CriticalErrorColor()
         else:
             raise WrongMessageException
 
@@ -59,13 +71,19 @@ class MessageFactory:
         raise NotImplementedError
 
 
-class ErrorColor(MessageFactory):
-    @staticmethod
-    def color(opacity):
-        return (200, 0, 0, int(opacity * 255))
-
-
 class WarningColor(MessageFactory):
     @staticmethod
     def color(opacity):
-        return (250, 150, 0, int(opacity * 255))
+        return (250, 200, 0, int(opacity * 255))
+
+
+class ErrorColor(MessageFactory):
+    @staticmethod
+    def color(opacity):
+        return (250, 0, 0, int(opacity * 255))
+
+
+class CriticalErrorColor(MessageFactory):
+    @staticmethod
+    def color(opacity):
+        return (150, 0, 0, int(opacity * 255))
