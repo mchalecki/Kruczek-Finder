@@ -109,7 +109,7 @@ class DocumentsHandler(object):
         results = [proxy_dict_to_dict(result) for result in results]
         pprint(results)
 
-    def run(self):
+    def process_files(self):
         """
         Runs workers in separate thread. Returns immediately.
         """

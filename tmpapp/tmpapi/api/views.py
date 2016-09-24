@@ -32,7 +32,7 @@ class MainView(FormView):
         ]
 
         documents_handler = DocumentsHandler(email, documents)
-        documents_handler.run()
+        documents_handler.process_files()
         return HttpResponse('Form valid. Files saved. Now it works under the hood.')
 
     def form_invalid(self, form, formset):
