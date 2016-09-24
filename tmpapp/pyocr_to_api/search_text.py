@@ -21,4 +21,4 @@ def process_page(indices, page, paragraph_original, phrase_list):
         sentences = ' '.join(sentences)
         ratio = Levenshtein.ratio(str(sentences), str(paragraph_original))
         if ratio > 0.60:
-            indices.append((i, page[i: end], ratio))
+            indices.append((i, (page[i].position[0], page[end].position[1]), ratio))

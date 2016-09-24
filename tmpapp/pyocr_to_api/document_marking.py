@@ -31,7 +31,7 @@ class DocumentMarking:
         return im
 
     @staticmethod
-    def _imprint(self, image, position, message, opacity=0.5):
+    def _imprint(image, position, message, opacity=0.5):
         width, height = image.size
         color = MessageFactory.factory(message).color(opacity)
         if image.mode != "RGBA":

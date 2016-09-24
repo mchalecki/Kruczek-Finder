@@ -33,16 +33,13 @@ class OCRProcessor:
 
     def process(self, data_file):
         data_processer = self._choose_data_processor(data_file)
-        text = list()
         for image in data_processer.open(data_file):
-            text.append(
-                    self._ocr_tool.image_to_string(
-                        image=image,
-                        lang=self._lang,
-                        builder=self._default_builder,
-                    ),
-                )
-            yield OCRProcessedImage(images=images, text=text)
+            text = self._ocr_tool.image_to_string(
+                image=image,
+                lang=self._lang,
+                builder=self._default_builder,
+            )
+            yield OCRProcessedImage(images=image, text=text)
 
     def _is_present(self, lang):
         return lang in self._ocr_tool.get_available_languages()
