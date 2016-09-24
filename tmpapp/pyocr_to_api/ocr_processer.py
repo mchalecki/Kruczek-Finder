@@ -36,8 +36,8 @@ class OCRProcesser:
     def _validate_tool(self, ocr_tool):
         return ocr_tool.is_available()
 
-    def process(self, data_file, extension):
-        data_processer = self._choose_data_processor(extension)
+    def process(self, data_file):
+        data_processer = self._choose_data_processor(data_file)
         text = list()
         images = list()
         for image in data_processer.open(data_file):
@@ -52,11 +52,14 @@ class OCRProcesser:
         # return OCRProcessedImage(images=images, text=text)
         return text
 
-    def _choose_data_processor(self, extension):
+    def _choose_data_processor(self, data_file):
         return self._data_processer.get(
-                extension,
+                self._get_file_extension(data_file),
                 self._data_processer['image'],
             )
+
+    def _get_file_extension(self, data_file):
+        return data_file.split('.')[-1]
 
 
 if __name__ == '__main__':
