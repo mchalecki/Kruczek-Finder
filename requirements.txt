@@ -7,3 +7,4 @@ kombu==3.0.35
 pytz==2016.6.1
 redis==2.10.5
 Unipath==1.1
+Pillow==3.3.1

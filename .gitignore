@@ -7,5 +7,5 @@ assets/
 *.sqlite3
 media/
 .sass-cache/
-
+.idea
 secrets.json
