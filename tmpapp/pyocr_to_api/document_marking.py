@@ -69,3 +69,7 @@ class WarningColor(MessageFactory):
     @staticmethod
     def color(opacity):
         return (250, 150, 0, int(opacity * 255))
+
+if __name__=='__main__':
+    file = Image.open('./sample_files/lol.jpg')
+    DocumentMarking().mark(file,[(300,300),(400,400)],'WARNING')
