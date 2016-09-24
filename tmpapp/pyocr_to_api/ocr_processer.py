@@ -1,13 +1,13 @@
 import pyocr
 import pyocr.builders
 
-from utils import _get_default_ocr_tool
-from pdf_processer import PDFProcesser
-from image_processer import ImageProcesser
+from .utils import get_default_ocr_tool
+from .pdf_processer import PDFProcesser
+from .image_processer import ImageProcesser
 
 DEFAULT_BUILDER = pyocr.builders.TextBuilder()
 DEFAULT_IMAGE_PROCESSER = ImageProcesser()
-DEFAULT_OCR_TOOL = _get_default_ocr_tool()
+DEFAULT_OCR_TOOL = get_default_ocr_tool()
 DEFAULT_PDF_PROCESSER = PDFProcesser()
 DEFAULT_DATA_PROCESSERS = {
         'pdf': DEFAULT_PDF_PROCESSER,

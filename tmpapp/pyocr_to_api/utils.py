@@ -1,8 +1,8 @@
 import pyocr
 
-from exceptions import ToolUnavailableException
+from .exceptions import ToolUnavailableException
 
-def _get_default_ocr_tool():
+def get_default_ocr_tool():
     tools = pyocr.get_available_tools()
     if len(tools) >= 1:
         return tools[0]
