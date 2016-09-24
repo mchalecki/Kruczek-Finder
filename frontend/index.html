@@ -11,11 +11,33 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
+  	<script>
+  $(function() {
+    $('a[href*="#"]:not([href="#"])').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html, body').animate({
+            scrollTop: target.offset().top
+          }, 1000);
+          return false;
+        }
+      }
+    });
+  });
+	</script>
 </head>
 <body>
-<div class="container-fluid bg-1 text-center">
-  <h1>ePrawnik</h1>
-  <p>Sprawdzi twoją umowę</p>
+<div class="container-fluid bg-1 text-center font-face">
+  <h1 id="title">KruczekFinder</h1>
+  <p>click me:
+  <a href="#plik">
+  <img src="logo2.png" class="img-responsive pulse" style="display:inline" alt="logo">
+  </a>
+  </p>
+  <h3>Znajdzie wszystkie kruczki</h3>
+  <!--<img id="paragraf" src="paragraf.png" class="img-responsive" style="display:inline" alt="paragraf">-->
 </div>
 <!-- sekcja-->
 <div class="jumbotron bg-2 text-center">
@@ -49,9 +71,10 @@ Po sprawdzeniu twojej umowy wyślemy Ci email
   </form>
 </div>
 <!--sekcja-->
-<div class="container-fluid bg-3 text-center">
-
-</div>
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Hackaton</p> 
+</footer>
 
 
 
