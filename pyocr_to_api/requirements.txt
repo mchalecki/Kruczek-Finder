@@ -2,7 +2,6 @@ boto==2.42.0
 bz2file==0.98
 cffi==1.8.3
 decorator==4.0.10
-gensim==0.13.2
 img2pdf==0.2.1
 ipython==5.1.0
 ipython-genutils==0.1.0

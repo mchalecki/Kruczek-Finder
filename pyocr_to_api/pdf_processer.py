@@ -2,7 +2,7 @@ import io
 
 from wand.image import Image as PDFImage
 from PIL import Image
-
+import time
 
 class PDFProcesser:
     def __init__(self, target_filetype='jpeg', target_resolution=600):
@@ -21,10 +21,14 @@ class PDFProcesser:
     def open(self, pdf_file):
         pdf = self._pdf_to_image(pdf_file)
         for pdf_page in self._get_list_of_images(pdf):
-            yield Image.open(io.BytesIO(img))
+            yield Image.open(io.BytesIO(pdf_page))
 
 if __name__ == '__main__':
     fname = 'sample_files/Wzor_umowy_KG_zawieranej_w_formie_elektronicznej_trybie_za_posrednictwem_mLinii.pdf'
+    start = time.time()
     pdfp = PDFProcesser()
+    end = time.time()
+    print(end - start)
     p = pdfp.open(fname)
-    # print(p)
+    print(time.time() - end)
+    print(p)

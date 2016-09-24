@@ -23,7 +23,7 @@ class TestOCRProcesser:
         print('TEST:\n', text)
         assert text[0].startswith('Sygnatura akt I C 1127/13')
 
-    @pytest.mark.skip()
+# @pytest.mark.skip()
     def test_pdf_processing(
             self,
             ocr_processer,
