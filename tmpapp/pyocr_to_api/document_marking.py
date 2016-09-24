@@ -30,15 +30,15 @@ class DocumentMarking:
         im.putalpha(alpha)
         return im
 
+    @staticmethod
     def _imprint(self, image, position, message, opacity=0.5):
         width, height = image.size
-        (y0, x0), (y1, x1) = position
         color = MessageFactory.factory(message).color(opacity)
         if image.mode != "RGBA":
             image = image.convert("RGBA")
         foreground = Image.new('RGBA', (width, height))
         draw = ImageDraw.Draw(foreground)
-        draw.rectangle([(x0, y0), (x1, y1)], fill=color)
+        draw.rectangle(position, fill=color)
         img = Image.alpha_composite(image, foreground)
         img.show()
         return img
