@@ -24,7 +24,8 @@ class KruczekFinder:
 
     def _process_page(self, page_text, categories):
         parts_to_mark = []
-        for phrase in self._data_source.data_for_category(categories):
+        print(self._data_source.data_for_categories(categories))
+        for phrase in self._data_source.data_for_categories(categories):
             parts_to_mark.extend(search_for_phrase(page_text, phrase))
         return parts_to_mark
 
@@ -49,7 +50,7 @@ class KruczekFinder:
             _image.show()
         return None
 
-    def _category_wprapper(self, category):
+    def _category_wrapper(self, category):
         if isinstance(category, list) or isinstance(category, tuple):
             return category
         return [category]
