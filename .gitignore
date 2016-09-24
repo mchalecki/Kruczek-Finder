@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+.env/
+assets/
+*.sqlite3
+media/
+.sass-cache/
+
+secrets.json

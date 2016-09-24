@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,iDAAiD;ACAjD,oDAAoD;;ACApD,OAAQ;EACP,MAAM,EAAE,OAAO;;ACDhB,kDAAkD",
+"sources": ["../sass/variables-slash-star-star-slash-star","../sass/abstractions-slash-star-star-slash-star","../sass/base/_base.scss","../sass/components-slash-star-star-slash-star"],
+"names": [],
+"file": "global.styles.css"
+}

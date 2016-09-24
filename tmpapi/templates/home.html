@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title>Sprawdź swoją umowę!</title>
+	<meta charset="utf-8">
+
+	<script src="{% static 'dist/jquery-3.1.1.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.normalize.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.styles.css' %}">
+</head>
+
+<body>
+	<h1>Hello world</h1>
+
+	<h2>Formularz:</h2>
+	<form method="POST" action="">
+		{% csrf_token %}
+		<h3>Dane wysyłającego</h3>
+		{{ form.as_p }}
+
+		<h3>Pliki umowy</h3>
+		<div class="formset-content">
+			<div class="management-form">
+				{{ formset.management_form }}
+			</div>
+			<div class="dynamic-forms">
+				{% for form in formset %}
+					<div class="inserted-form">
+						{{ form.as_p }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="actions">
+			<a class="button" id="add-button">Dodaj</a>
+			<a class="button" id="remove-button">Usuń</a>
+		</div>
+		<input type="submit" value="Wyślij">
+	</form>
+</body>
+</html>
