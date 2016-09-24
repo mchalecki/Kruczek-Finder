@@ -1,4 +1,4 @@
-from PIL import ImageDraw, ImageEnhance
+from PIL import ImageDraw, ImageEnhance, Image
 
 
 class WrongMessageException(Exception):
@@ -6,9 +6,6 @@ class WrongMessageException(Exception):
 
 
 class DocumentMarking:
-    def __init__(self):
-        pass
-
     def mark(self, image_object, position, message):
         """
 
@@ -34,13 +31,17 @@ class DocumentMarking:
         return im
 
     def _imprint(self, image, position, message, opacity=0.5):
+        width, height = image.size
+        (y0, x0), (y1, x1) = position
         color = MessageFactory.factory(message).color(opacity)
-        y0, x0, y1, x1 = position
         if image.mode != "RGBA":
             image = image.convert("RGBA")
-        draw = ImageDraw.Draw(image)
+        foreground = Image.new('RGBA', (width, height))
+        draw = ImageDraw.Draw(foreground)
         draw.rectangle([(x0, y0), (x1, y1)], fill=color)
-        return image
+        img = Image.alpha_composite(image, foreground)
+        img.show()
+        return img
 
 
 class MessageFactory:
@@ -67,4 +68,4 @@ class ErrorColor(MessageFactory):
 class WarningColor(MessageFactory):
     @staticmethod
     def color(opacity):
-        return (300, 300, 0, int(opacity * 255))
+        return (250, 150, 0, int(opacity * 255))
