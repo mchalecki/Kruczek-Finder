@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="pl-PL">
+<meta charset="UTF-8">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>TmpTeam</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+  	<script>
+  $(function() {
+    $('a[href*="#"]:not([href="#"])').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html, body').animate({
+            scrollTop: target.offset().top
+          }, 1000);
+          return false;
+        }
+      }
+    });
+  });
+	</script>
+</head>
+<body>
+<div class="container-fluid bg-1 text-center font-face">
+  <h1 id="title">KruczekFinder</h1>
+  <p>click me:
+  <a href="#plik">
+  <img src="logo2.png" class="img-responsive pulse" style="display:inline" alt="logo">
+  </a>
+  </p>
+  <h3>Znajdzie wszystkie kruczki</h3>
+  <!--<img id="paragraf" src="paragraf.png" class="img-responsive" style="display:inline" alt="paragraf">-->
+</div>
+<!-- sekcja-->
+<div class="jumbotron bg-2 text-center">
+<div class = "email">
+Po sprawdzeniu twojej umowy wyślemy Ci email
+</div>
+ <form class="form-inline" action="end.html" method="post">
+  <div class="form-group abc my-container" >
+  <input id="plik" class="form-control" size="50" required >
+  <label class="btn btn-default btn-file">
+	     Wybierz plik..  <span class="glyphicon glyphicon-folder-open"></span>
+		 <input type="file" >
+	</label>
+  </div>
+  </br>
+  <div  id="odstep" class="form-group abc" >
+    <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+	<label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+	<label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+  </div>
+  </br>
+  <div  class="form-group abc">
+  <a id="ok" class="btn btn-success"> <span class="glyphicon glyphicon-ok"></span>  Dalej</a> 
+	<a id="no" class="btn btn-danger">  <span class="glyphicon glyphicon-remove"></span> Anuluj</a> 
+  </div>
+  <div class="form-group email">
+	<!--<label for="email">Email:</label>-->
+    <input type="email" class="form-control col-sm-4" size="50" placeholder="Adres Email" required >
+    <button id="send" type="submit" class="btn btn-default">Wyślij  <span class="glyphicon glyphicon-envelope"></span> </button> 
+  </div>
+  </form>
+</div>
+<!--sekcja-->
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Hackaton</p> 
+</footer>
+
+
+
+</body>
+</html>
+
