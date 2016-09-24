@@ -4,6 +4,149 @@
 .button {
   cursor: pointer; }
 
+/* line 1, ../sass/base/_footer.scss */
+footer {
+  padding: 80px 0;
+  background-color: #474e5d; }
+  /* line 5, ../sass/base/_footer.scss */
+  footer .credentials {
+    font-size: 24px;
+    color: #ddd; }
+
+/* line 1, ../sass/base/_form.scss */
+form {
+  margin: 0; }
+  /* line 5, ../sass/base/_form.scss */
+  form input {
+    border-radius: 4px; }
+  /* line 9, ../sass/base/_form.scss */
+  form input[type="text"], form input[type="email"] {
+    color: #474e5d;
+    padding: 10px;
+    width: 100%; }
+  /* line 15, ../sass/base/_form.scss */
+  form label {
+    display: block; }
+  /* line 19, ../sass/base/_form.scss */
+  form .inserted-form {
+    margin-bottom: 75px; }
+  /* line 23, ../sass/base/_form.scss */
+  form .categories-input-wrapper {
+    display: none; }
+  /* line 27, ../sass/base/_form.scss */
+  form .file-input-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px; }
+    /* line 34, ../sass/base/_form.scss */
+    form .file-input-wrapper input[type="file"] {
+      display: none; }
+    /* line 38, ../sass/base/_form.scss */
+    form .file-input-wrapper .preview-input {
+      width: calc(100% - 140px); }
+    /* line 42, ../sass/base/_form.scss */
+    form .file-input-wrapper label {
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      background-color: #fff;
+      color: #000;
+      margin: 0;
+      padding: 10px;
+      font-weight: inherit;
+      min-width: 120px; }
+      /* line 53, ../sass/base/_form.scss */
+      form .file-input-wrapper label:hover {
+        background-color: #ebebe4; }
+  /* line 59, ../sass/base/_form.scss */
+  form .select2 {
+    width: 100% !important; }
+    /* line 62, ../sass/base/_form.scss */
+    form .select2 .select2-selection {
+      padding: 5px !important; }
+    /* line 65, ../sass/base/_form.scss */
+    form .select2 .select2-selection__choice {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: #000; }
+    /* line 70, ../sass/base/_form.scss */
+    form .select2 .select2-selection--multiple {
+      cursor: pointer; }
+  /* line 75, ../sass/base/_form.scss */
+  form button {
+    font-weight: 700; }
+  /* line 79, ../sass/base/_form.scss */
+  form input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 50px;
+    color: #474e5d;
+    padding: 10px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    text-transform: uppercase;
+    background-color: #fff;
+    font-size: 30px;
+    border-radius: 8px;
+    border: 2px solid #474e5d; }
+
+/* line 1, ../sass/base/_header.scss */
+header {
+  background-color: #1abc9c; }
+  /* line 4, ../sass/base/_header.scss */
+  header .logo {
+    width: 230px; }
+    @media (min-width: 768px) {
+      /* line 4, ../sass/base/_header.scss */
+      header .logo {
+        width: 468px; } }
+  /* line 11, ../sass/base/_header.scss */
+  header .logo-header {
+    margin: 0;
+    font: 50px 'Impact';
+    color: #000; }
+  /* line 17, ../sass/base/_header.scss */
+  header .pulse {
+    animation-name: pulse_animation;
+    animation-duration: 5000ms;
+    transform-origin: 70% 70%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; }
+@keyframes pulse_animation {
+  0% {
+    transform: scale(1); }
+  30% {
+    transform: scale(1); }
+  40% {
+    transform: scale(1.08); }
+  50% {
+    transform: scale(1); }
+  60% {
+    transform: scale(1); }
+  70% {
+    transform: scale(1.05); }
+  80% {
+    transform: scale(1); }
+  100% {
+    transform: scale(1); } }
+/* line 1, ../sass/base/_main.scss */
+main {
+  color: #fff; }
+  /* line 4, ../sass/base/_main.scss */
+  main section {
+    padding: 80px 0; }
+    /* line 7, ../sass/base/_main.scss */
+    main section .section-header {
+      font-size: 40px; }
+  /* line 11, ../sass/base/_main.scss */
+  main #files {
+    background-color: #474e5d; }
+  /* line 15, ../sass/base/_main.scss */
+  main #contact {
+    background-color: #1abc9c; }
+
 /* No files to import found in components/**\/* */
 
 /*# sourceMappingURL=global.styles.css.map */

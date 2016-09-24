@@ -1,0 +1,94 @@
+form {
+
+	margin: 0;
+
+	input {
+		border-radius: 4px;
+	}
+
+	input[type="text"], input[type="email"] {
+		color: #474e5d;
+		padding: 10px;
+		width: 100%;
+	}
+
+	label {
+		display: block;
+	}
+
+	.inserted-form {
+		margin-bottom: 75px;
+	}
+
+	.categories-input-wrapper {
+		display: none;
+	}
+
+	.file-input-wrapper {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 25px;
+
+		input[type="file"] {
+			display: none;
+		}
+
+		.preview-input {
+			width: calc(100% - 140px);
+		}
+
+		label {
+			border-radius: 4px;
+			cursor: pointer;
+			display: block;
+			background-color: #fff;
+			color: #000;
+			margin: 0;
+			padding: 10px;
+			font-weight: inherit;
+			min-width: 120px;
+
+			&:hover {
+				background-color: rgb(235, 235, 228);
+			}
+		}
+	}
+
+	.select2 {
+		width: 100% !important;
+
+		.select2-selection {
+			padding: 5px !important;
+		}
+		.select2-selection__choice {
+			margin-top: 5px;
+			margin-bottom: 5px;
+			color: #000;
+		}
+		.select2-selection--multiple {
+			cursor: pointer;
+		}
+	}
+
+	button {
+		font-weight: 700;
+	}
+
+	input[type="submit"] {
+		display: block;
+		width: 100%;
+		margin-top: 50px;
+		color: #474e5d;
+		padding: 10px;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		text-transform: uppercase;
+		background-color: #fff;
+		font-size: 30px;
+		border-radius: 8px;
+		border: 2px solid #474e5d;
+	}
+
+}
