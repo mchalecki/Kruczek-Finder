@@ -1,7 +1,14 @@
+{% load staticfiles %}
 <html>
 <head>
 	<title>Sprawdź swoją umowę!</title>
 	<meta charset="utf-8">
+
+	<script src="{% static 'dist/jquery-3.1.1.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.normalize.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.styles.css' %}">
 </head>
 
 <body>
@@ -14,10 +21,22 @@
 		{{ form.as_p }}
 
 		<h3>Pliki umowy</h3>
-		{{ formset.management_form }}
-		{% for form in formset %}
-			{{ form.as_p }}
-		{% endfor %}
+		<div class="formset-content">
+			<div class="management-form">
+				{{ formset.management_form }}
+			</div>
+			<div class="dynamic-forms">
+				{% for form in formset %}
+					<div class="inserted-form">
+						{{ form.as_p }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="actions">
+			<a class="button" id="add-button">Dodaj</a>
+			<a class="button" id="remove-button">Usuń</a>
+		</div>
 		<input type="submit" value="Wyślij">
 	</form>
 </body>
