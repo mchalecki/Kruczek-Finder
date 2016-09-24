@@ -15,7 +15,7 @@
 	<h1>Hello world</h1>
 
 	<h2>Formularz:</h2>
-	<form method="POST" action="">
+	<form method="POST" action="" enctype="multipart/form-data">
 		{% csrf_token %}
 		<h3>Dane wysyłającego</h3>
 		{{ form.as_p }}
@@ -28,6 +28,7 @@
 			<div class="dynamic-forms">
 				{% for form in formset %}
 					<div class="inserted-form">
+						{{ form.errors }}
 						{{ form.as_p }}
 					</div>
 				{% endfor %}

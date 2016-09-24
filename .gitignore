@@ -9,3 +9,5 @@ media/
 .sass-cache/
 
 secrets.json
+uploaded/
+tmp/

@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.views.generic import FormView
 
 from .forms import CredentialsForm, DocumentsFormset
+from .handler import DocumentsHandler
 
 
 class MainView(FormView):
@@ -24,7 +25,15 @@ class MainView(FormView):
         """
         Handle valid forms.
         """
-        return HttpResponse("form valid")
+        email = form.cleaned_data['email']
+        documents = [
+            (form.cleaned_data['document'], form.cleaned_data['categories'])
+            for form in formset.forms
+        ]
+
+        documents_handler = DocumentsHandler(email, documents)
+        documents_handler.run()
+        return HttpResponse('Form valid. Files saved. Now it works under the hood.')
 
     def form_invalid(self, form, formset):
         """

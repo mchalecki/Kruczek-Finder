@@ -123,3 +123,7 @@ STATICFILES_DIRS = [
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+
+# Temporary directory for uploaded files
+TMP_DIR = BASE_DIR.child('tmp')

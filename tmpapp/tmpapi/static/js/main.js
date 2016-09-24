@@ -25,7 +25,7 @@ $(function() {
     $("#add-button").on('click', function() {
     	var idx = parseInt(total_forms.val());
     	var new_form = form_template.clone();
-    	new_form.find('input, label').each(function() {
+    	new_form.find('input, label, select').each(function() {
     		updateElementIndex($(this), 'form', idx);
     	});
     	formset.find('.dynamic-forms').append(new_form);
