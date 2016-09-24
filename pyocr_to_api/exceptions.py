@@ -1,0 +1,2 @@
+class ToolUnavailableException(Exception):
+    pass
