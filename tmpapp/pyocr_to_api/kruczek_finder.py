@@ -3,7 +3,7 @@ from tqdm import tqdm
 from .search_text import search_for_phrase
 from .document_marking import DocumentMarking
 from .ocr_processer import OCRProcessor
-from .tmpdatasource.source import DataSource
+from ..tmpdatasource.source import DataSource
 
 
 DEFAULT_DATA_SOURCE = DataSource()
@@ -24,7 +24,6 @@ class KruczekFinder:
 
     def _process_page(self, page_text, categories):
         parts_to_mark = []
-        print(self._data_source.data_for_categories(categories))
         for phrase in self._data_source.data_for_categories(categories):
             parts_to_mark.extend(search_for_phrase(page_text, phrase))
         return parts_to_mark
@@ -48,7 +47,7 @@ class KruczekFinder:
             images_marked.append(_image)
             print(_image.size)
             _image.show()
-        return None
+        return images_marked
 
     def _category_wrapper(self, category):
         if isinstance(category, list) or isinstance(category, tuple):
