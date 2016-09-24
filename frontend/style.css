@@ -1,0 +1,66 @@
+#odstep {
+	padding: 10px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+ .jumbotron {
+      background-color: #f4511e;
+      color: #fff;
+      padding: 50px 25px;
+  }
+  .container-fluid {
+      padding: 60px 50px;
+  }
+  .bg-grey {
+      background-color: #f6f6f6;
+  }
+  .logo-small {
+      color: #f4511e;
+      font-size: 50px;
+  }
+  .logo {
+      color: #f4511e;
+      font-size: 200px;
+  }
+  @media screen and (max-width: 768px) {
+    .col-sm-4 {
+      text-align: center;
+      margin: 25px 0;
+    }
+  }
+  
+  .bg-1 { 
+		background-color: #1abc9c; /* Green */
+		color: #ffffff;
+	}
+	.bg-2 { 
+		background-color: #474e5d; /* Dark Blue */
+		color: #ffffff;
+	}
+	.bg-3 { 
+		background-color: #ffffff; /* White */
+		color: #555555;
+	}
+	
+	.form-control {
+		max-width:300px;
+	}
