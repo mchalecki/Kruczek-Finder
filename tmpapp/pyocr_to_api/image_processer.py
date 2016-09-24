@@ -1,4 +1,5 @@
 from PIL import Image
+from tmpapp.pyocr_to_api.exceptions import FileFormatError
 
 
 class ImageProcesser:
@@ -6,4 +7,9 @@ class ImageProcesser:
         self._target_filetype = target_filetype
 
     def open(self, image_file):
-        yield Image.open(image_file)
+        try:
+            image = Image.open(image_file)
+        except OSError:
+            raise FileFormatError()
+        else:
+            yield image

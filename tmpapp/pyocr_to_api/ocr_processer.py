@@ -30,12 +30,6 @@ class OCRProcesser:
         self._default_builder = default_builder
         self._data_processer = data_processers
 
-    def _validate_lang(self, lang):
-        return lang in self._ocr_tool.get_available_languages()
-
-    def _validate_tool(self, ocr_tool):
-        return ocr_tool.is_available()
-
     def process(self, data_file):
         data_processer = self._choose_data_processor(data_file)
         text = list()
@@ -51,6 +45,15 @@ class OCRProcesser:
                 )
         # return OCRProcessedImage(images=images, text=text)
         return text
+
+    def _validate_lang(self, lang):
+        return lang in self._ocr_tool.get_available_languages()
+
+    def _validate_tool(self, ocr_tool):
+        return ocr_tool.is_available()
+
+    def _validate_data_file(self, data_file):
+        pass
 
     def _choose_data_processor(self, data_file):
         return self._data_processer.get(
