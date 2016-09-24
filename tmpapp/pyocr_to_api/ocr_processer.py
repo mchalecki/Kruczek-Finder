@@ -1,5 +1,6 @@
 import pyocr
 import pyocr.builders
+from collections import namedtuple
 
 from .utils import get_default_ocr_tool
 from .pdf_processer import PDFProcesser
@@ -14,6 +15,7 @@ DEFAULT_DATA_PROCESSERS = {
         'image': DEFAULT_IMAGE_PROCESSER,
     }
 
+OCRProcessedImage = namedtuple('OCRProcessedImage', ['images', 'text'])
 
 class OCRProcesser:
     def __init__(
@@ -37,7 +39,9 @@ class OCRProcesser:
     def process(self, data_file, extension):
         data_processer = self._choose_data_processor(extension)
         text = list()
+        images = list()
         for image in data_processer.open(data_file):
+            images.append(image)
             text.append(
                     self._ocr_tool.image_to_string(
                         image=image,
@@ -45,6 +49,7 @@ class OCRProcesser:
                         builder=self._default_builder,
                     ),
                 )
+        # return OCRProcessedImage(images=images, text=text)
         return text
 
     def _choose_data_processor(self, extension):
