@@ -1,5 +1,5 @@
 from PIL import Image
-from tmpapp.pyocr_to_api.exceptions import FileFormatError
+from .exceptions import FileFormatError
 
 
 class ImageProcesser:
