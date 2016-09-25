@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.generic import FormView
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import FormView, TemplateView
 
 from .forms import CredentialsForm, DocumentsFormset
 from .handler import DocumentsHandler
+from .models import Session
 
 
 class MainView(FormView):
@@ -67,3 +68,17 @@ class MainView(FormView):
             return self.form_valid(form, formset)
         else:
             return self.form_invalid(form, formset)
+
+
+class ResultView(TemplateView):
+    """
+    View for presenting analysis result.
+    """
+
+    template_name = 'result.html'
+
+    def get(self, *args, **kwargs):
+        session = get_object_or_404(Session, token=kwargs.pop('token'))
+        return self.render_to_response(
+            self.get_context_data(session=session)
+        )
