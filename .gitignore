@@ -9,3 +9,8 @@ media/
 .sass-cache/
 .idea
 secrets.json
+uploaded/
+tmp/
+.idea
+secrets.json
+tmp/

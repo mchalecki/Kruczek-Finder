@@ -1,8 +1,18 @@
 from django import forms
 
+from tmpapp.tmpdatasource import DataSource
+
+
+MOCK_CHOICES = (
+	('a', 'A'),
+	('b', 'B'),
+	('c', 'C'),
+)
+
 
 class DocumentForm(forms.Form):
     document = forms.FileField()
+    categories = forms.MultipleChoiceField(choices=DataSource().get_categories())
 
 
 class CredentialsForm(forms.Form):

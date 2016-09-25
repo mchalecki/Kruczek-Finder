@@ -1,7 +1,9 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.generic import FormView
 
 from .forms import CredentialsForm, DocumentsFormset
+from .handler import DocumentsHandler
 
 
 class MainView(FormView):
@@ -11,6 +13,8 @@ class MainView(FormView):
     - all of the *magic* stuff on POST
     """
     template_name = 'home.html'
+    thanks_template_name = 'thanks.html'
+
     form_class = CredentialsForm
 
     def get_context_data(self, *args, **kwargs):
@@ -24,7 +28,24 @@ class MainView(FormView):
         """
         Handle valid forms.
         """
-        return HttpResponse("form valid")
+        self.email = form.cleaned_data['email']
+        documents = [
+            (form.cleaned_data['document'], form.cleaned_data['categories'])
+            for form in formset.forms
+        ]
+
+        documents_handler = DocumentsHandler(self.email, documents)
+        documents_handler.process_files()
+
+        return self.thank_user()
+
+    def thank_user(self):
+        return render(
+            self.request, self.thanks_template_name,
+            self.get_context_data(
+                email=self.email
+            )
+        )
 
     def form_invalid(self, form, formset):
         """
