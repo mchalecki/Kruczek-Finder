@@ -6,12 +6,22 @@ $(function() {
         $('html, body').animate({
             scrollTop: target.offset().top
           }, 500);
-    }
+    };
 
     $('.slide-down-anchor').on('click', function(event) {
         event.preventDefault();
         var target = $($(this).data('href'));
         slideDown(target);
+    });
+
+    /* OWL-CAROUSEL */
+    $(".owl-carousel").owlCarousel({
+        items: 1,
+        singleItem: true,
+        autoPlay: false,
+        autoHeight: true,
+        navigation: true,
+        pagination: true,
     });
 
     /* FORMSETS */

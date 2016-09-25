@@ -4,6 +4,11 @@
 .button, .slide-down-anchor {
   cursor: pointer; }
 
+@media (min-width: 1440px) {
+  /* line 5, ../sass/base/_base.scss */
+  .wide-container {
+    width: 1400px; } }
+
 /* line 1, ../sass/base/_footer.scss */
 footer {
   padding: 80px 0;
@@ -164,6 +169,13 @@ main {
   /* line 15, ../sass/base/_main.scss */
   main #contact {
     background-color: #1abc9c; }
+
+/* line 1, ../sass/base/_results.scss */
+#results {
+  background-color: #d0d0d0; }
+  /* line 3, ../sass/base/_results.scss */
+  #results .page-wrapper {
+    padding: 100px 0; }
 
 /* line 1, ../sass/base/_thanks.scss */
 #thanks {
