@@ -3,8 +3,11 @@ import os
 import uuid
 
 from django.conf import settings
+from django import db
 
-from tmpapp.pyocr_to_api.ocr_processer import OCRProcesser
+from .models import Session
+
+from tmpapp.pyocr_to_api.kruczek_finder import KruczekFinder
 
 
 class ProcessorMock(object):
@@ -13,10 +16,7 @@ class ProcessorMock(object):
     """
 
     def process(self, fname, categories):
-        return {
-            'fname': fname,
-            'status': 'OK'
-        }
+        return [1, 2]
 
 
 class DocumentsHandler(object):
@@ -41,8 +41,16 @@ class DocumentsHandler(object):
     def tmp_dir(self):
         return settings.TMP_DIR
 
-    def get_procsser_instance(self):
-        return ProcessorMock()
+    def get_finder_instance(self):
+        """
+        Avoiding recursive import
+        """
+        from .models import Clause, FoundClause, Image
+
+        datasource = Clause.objects
+        return KruczekFinder(
+            FoundClause, Image, datasource
+        )
 
     def get_tmp_name(self, fname):
         """
@@ -64,14 +72,14 @@ class DocumentsHandler(object):
 
         return fpath
 
-    def handle_file(self, file, categories, result):
+    def handle_file(self, file, categories):
         """
         Callable that handles single file.
         Executed by multiprocessing worker.
         """
-        processer = self.get_procsser_instance()
-        processing_result = processer.process(file, categories)
-        result.update(processing_result)
+        finder = self.get_finder_instance()
+        finder_result = finder.process_file(file, categories)
+        return finder_result
 
     def _run(self):
         """
@@ -81,37 +89,41 @@ class DocumentsHandler(object):
         manager = Manager()
         workers = []
         results = []
-
         for file, categories in self.user_files:
-            result = manager.dict()
+            result = self.handle_file(file, categories)
             results.append(result)
-            worker = Process(
-                target=self.handle_file, args=(file, categories, result)
-            )
-            workers.append(worker)
-            worker.start()
-        # join all the workers
-        for worker in workers:
-            worker.join()
-        # and handle results
         self.handle_results(results)
 
     def handle_results(self, results):
         """
-        Just print it to the console.
-        Enough for the demo, lol
+        Return results to ResultsHandler
         """
-        def proxy_dict_to_dict(proxy_dict):
-            """ This is stupid, but dict(proxy_dict) doesn't work... """
-            return {k: v for k, v in proxy_dict.items()}
-
-        from pprint import pprint
-        results = [proxy_dict_to_dict(result) for result in results]
-        pprint(results)
+        results = [list(r) for r in results]
+        results_handler = ResultsHandler(results, self.user_email)
+        results_handler.process_results()
 
     def process_files(self):
         """
         Runs workers in separate thread. Returns immediately.
         """
+        db.connections.close_all()
         p = Process(target=self._run)
         p.start()
+
+
+class ResultsHandler(object):
+    """
+    Handler for results received from OCR.
+    """
+
+    def __init__(self, results, email):
+        self.results = results
+        self.email = email
+        self.session = Session.objects.create()
+
+    def process_results(self):
+        for images in self.results:
+            for image in images:
+                image.session = self.session
+                image.save()
+        print(self.session.token)

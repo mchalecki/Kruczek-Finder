@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_head %}
+	<script src="{% static 'dist/owl-carousel/owl.carousel.min.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/owl-carousel/owl.carousel.css' %}">
+	<script>
+		$(".owl-carousel").owlCarousel({
+	        items: 1,
+	        singleItem: true,
+	        autoPlay: false,
+	        autoHeight: true,
+	        navigation: true,
+	        pagination: true,
+	    });
+	</script>
+{% endblock %}
+
+{% block main %}
+<section id="results">
+	<div class="container wide-container">
+		<div class="pages-wrapper owl-carousel">
+			{% for image in images %}
+				<div class="page-wrapper">
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -6,7 +6,7 @@ $(function() {
         $('html, body').animate({
             scrollTop: target.offset().top
           }, 500);
-    }
+    };
 
     $('.slide-down-anchor').on('click', function(event) {
         event.preventDefault();

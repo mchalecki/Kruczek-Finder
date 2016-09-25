@@ -2,3 +2,9 @@
 	cursor: pointer;
 }
 
+.wide-container {
+	@include breakpoint(1440px) {
+		width: 1400px;
+	}
+}
+
