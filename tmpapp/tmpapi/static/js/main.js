@@ -14,16 +14,6 @@ $(function() {
         slideDown(target);
     });
 
-    /* OWL-CAROUSEL */
-    $(".owl-carousel").owlCarousel({
-        items: 1,
-        singleItem: true,
-        autoPlay: false,
-        autoHeight: true,
-        navigation: true,
-        pagination: true,
-    });
-
     /* FORMSETS */
 
 	var formset = $('.formset-content');
