@@ -53,11 +53,13 @@ class KruczekFinder:
             return p3, p4
 
     def reduce_areas(self, areas):
-        reduced = [areas]
+        reduced = areas
         if len(areas) > 1:
             reduced = [areas[0]]
             for area in areas[1:]:
                 reduced = self.compare_areas(reduced[-1], area)
+        if not isinstance(reduced, list):
+            reduced = [reduced]
         return reduced
 
     def _process_page(self, page_text, categories):
