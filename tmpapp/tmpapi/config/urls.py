@@ -10,7 +10,7 @@ urlpatterns = [
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
     urlpatterns.append(url(
-        r'^media/(?P<path>.*)$',
+        r'^tmp/(?P<path>.*)$',
         static.serve, kwargs={
             'document_root': settings.MEDIA_ROOT
         }
