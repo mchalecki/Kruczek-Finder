@@ -34,8 +34,9 @@ class MainView(FormView):
             (form.cleaned_data['document'], form.cleaned_data['categories'])
             for form in formset.forms
         ]
+        domain = self.request.META['HTTP_HOST']
 
-        documents_handler = DocumentsHandler(self.email, documents)
+        documents_handler = DocumentsHandler(self.email, documents, domain)
         documents_handler.process_files()
 
         return self.thank_user()
