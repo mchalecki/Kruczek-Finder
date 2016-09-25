@@ -3,8 +3,7 @@ import os
 import uuid
 
 from django.conf import settings
-
-from tmpapp.pyocr_to_api.ocr_processer import OCRProcesser
+from django import db
 
 
 class ProcessorMock(object):
@@ -13,10 +12,7 @@ class ProcessorMock(object):
     """
 
     def process(self, fname, categories):
-        return {
-            'fname': fname,
-            'status': 'OK'
-        }
+        return [1,2]
 
 
 class DocumentsHandler(object):
@@ -71,7 +67,7 @@ class DocumentsHandler(object):
         """
         processer = self.get_procsser_instance()
         processing_result = processer.process(file, categories)
-        result.update(processing_result)
+        result.extend(processing_result)
 
     def _run(self):
         """
@@ -81,9 +77,8 @@ class DocumentsHandler(object):
         manager = Manager()
         workers = []
         results = []
-
         for file, categories in self.user_files:
-            result = manager.dict()
+            result = manager.list()
             results.append(result)
             worker = Process(
                 target=self.handle_file, args=(file, categories, result)
@@ -98,20 +93,31 @@ class DocumentsHandler(object):
 
     def handle_results(self, results):
         """
-        Just print it to the console.
-        Enough for the demo, lol
+        Return results to ResultsHandler
         """
-        def proxy_dict_to_dict(proxy_dict):
-            """ This is stupid, but dict(proxy_dict) doesn't work... """
-            return {k: v for k, v in proxy_dict.items()}
-
-        from pprint import pprint
-        results = [proxy_dict_to_dict(result) for result in results]
-        pprint(results)
+        results = [list(r) for r in results]
+        results_handler = ResultsHandler(results, self.user_email)
+        results_handler.process_results()
 
     def process_files(self):
         """
         Runs workers in separate thread. Returns immediately.
         """
+        db.connections.close_all()
         p = Process(target=self._run)
         p.start()
+
+
+class ResultsHandler(object):
+    """
+    Handler for results received from OCR.
+    """
+    def __init__(self, results, email):
+        self.results = results
+        self.email = email
+
+    def process_results(self):
+        from pprint import pprint
+        pprint(self.results)
+
+
