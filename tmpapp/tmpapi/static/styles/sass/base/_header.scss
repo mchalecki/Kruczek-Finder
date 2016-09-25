@@ -1,5 +1,10 @@
 header {
 	background-color: #1abc9c;
+	padding-bottom: 60px;
+
+	a {
+		text-decoration: none !important;
+	}
 
 	.logo {
 		width: 230px;
@@ -10,8 +15,11 @@ header {
 
 	.logo-header {
 		margin: 0;
-		font: 50px 'Impact';
-		color: #000;
+		font: 900 45px 'Titillium Web';
+		@include breakpoint(768px) {
+			font-size: 75px;
+		}
+ 		color: #000;
 	}
 
 	.pulse {

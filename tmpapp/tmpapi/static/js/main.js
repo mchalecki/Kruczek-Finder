@@ -1,6 +1,15 @@
 $(function() {
 	'use strict';
 
+    /* SLIDE DOWNS */
+    $('.slide-down-anchor').on('click', function(event) {
+        event.preventDefault();
+        var target = $($(this).data('href'));
+        $('html, body').animate({
+            scrollTop: target.offset().top
+          }, 500);
+    });
+
     /* FORMSETS */
 
 	var formset = $('.formset-content');

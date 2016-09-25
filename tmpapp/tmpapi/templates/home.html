@@ -12,6 +12,7 @@
 	<script src="{% static 'dist/select2/js/select2.min.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
 
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'dist/bootstrap/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'dist/select2/css/select2.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.normalize.css' %}">
@@ -21,8 +22,10 @@
 <body>
 	<header>
 		<div class="container text-center">
-			<h1 class="logo-header">KruczekFinder</h1>
-			<img class="logo pulse" src="{% static 'img/logo.png' %}">
+			<a class="slide-down-anchor" data-href="#files">
+				<img class="logo" src="{% static 'img/logo.png' %}">
+				<h1 class="logo-header">KruczekFinder</h1>
+			</a>
 		</div>
 	</header>
 

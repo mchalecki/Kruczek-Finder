@@ -1,7 +1,7 @@
 /* No files to import found in variables/**\/* */
 /* No files to import found in abstractions/**\/* */
 /* line 1, ../sass/base/_base.scss */
-.button {
+.button, .slide-down-anchor {
   cursor: pointer; }
 
 /* line 1, ../sass/base/_footer.scss */
@@ -22,31 +22,34 @@ form {
   /* line 9, ../sass/base/_form.scss */
   form input[type="text"], form input[type="email"] {
     color: #474e5d;
-    padding: 10px;
+    padding: 15px;
+    font-size: 20px;
+    line-height: 20px;
+    height: 60px;
     width: 100%; }
-  /* line 15, ../sass/base/_form.scss */
+  /* line 18, ../sass/base/_form.scss */
   form label {
     display: block; }
-  /* line 19, ../sass/base/_form.scss */
+  /* line 22, ../sass/base/_form.scss */
   form .inserted-form {
     margin-bottom: 75px; }
-  /* line 23, ../sass/base/_form.scss */
+  /* line 26, ../sass/base/_form.scss */
   form .categories-input-wrapper {
     display: none; }
-  /* line 27, ../sass/base/_form.scss */
+  /* line 30, ../sass/base/_form.scss */
   form .file-input-wrapper {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 25px; }
-    /* line 34, ../sass/base/_form.scss */
+    /* line 37, ../sass/base/_form.scss */
     form .file-input-wrapper input[type="file"] {
       display: none; }
-    /* line 38, ../sass/base/_form.scss */
+    /* line 41, ../sass/base/_form.scss */
     form .file-input-wrapper .preview-input {
       width: calc(100% - 140px); }
-    /* line 42, ../sass/base/_form.scss */
+    /* line 45, ../sass/base/_form.scss */
     form .file-input-wrapper label {
       border-radius: 4px;
       cursor: pointer;
@@ -54,30 +57,37 @@ form {
       background-color: #fff;
       color: #000;
       margin: 0;
-      padding: 10px;
+      padding: 20px;
+      line-height: 20px;
+      height: 60px;
       font-weight: inherit;
       min-width: 120px; }
-      /* line 53, ../sass/base/_form.scss */
+      /* line 58, ../sass/base/_form.scss */
       form .file-input-wrapper label:hover {
         background-color: #ebebe4; }
-  /* line 59, ../sass/base/_form.scss */
+  /* line 64, ../sass/base/_form.scss */
+  form .actions {
+    display: flex;
+    justify-content: space-between; }
+  /* line 69, ../sass/base/_form.scss */
   form .select2 {
     width: 100% !important; }
-    /* line 62, ../sass/base/_form.scss */
+    /* line 72, ../sass/base/_form.scss */
     form .select2 .select2-selection {
-      padding: 5px !important; }
-    /* line 65, ../sass/base/_form.scss */
+      padding: 15px !important; }
+    /* line 75, ../sass/base/_form.scss */
     form .select2 .select2-selection__choice {
       margin-top: 5px;
       margin-bottom: 5px;
-      color: #000; }
-    /* line 70, ../sass/base/_form.scss */
+      color: #000;
+      font-size: 16px; }
+    /* line 81, ../sass/base/_form.scss */
     form .select2 .select2-selection--multiple {
       cursor: pointer; }
-  /* line 75, ../sass/base/_form.scss */
+  /* line 86, ../sass/base/_form.scss */
   form button {
     font-weight: 700; }
-  /* line 79, ../sass/base/_form.scss */
+  /* line 90, ../sass/base/_form.scss */
   form input[type="submit"] {
     display: block;
     width: 100%;
@@ -94,20 +104,28 @@ form {
 
 /* line 1, ../sass/base/_header.scss */
 header {
-  background-color: #1abc9c; }
-  /* line 4, ../sass/base/_header.scss */
+  background-color: #1abc9c;
+  padding-bottom: 60px; }
+  /* line 5, ../sass/base/_header.scss */
+  header a {
+    text-decoration: none !important; }
+  /* line 9, ../sass/base/_header.scss */
   header .logo {
     width: 230px; }
     @media (min-width: 768px) {
-      /* line 4, ../sass/base/_header.scss */
+      /* line 9, ../sass/base/_header.scss */
       header .logo {
         width: 468px; } }
-  /* line 11, ../sass/base/_header.scss */
+  /* line 16, ../sass/base/_header.scss */
   header .logo-header {
     margin: 0;
-    font: 50px 'Impact';
+    font: 900 45px 'Titillium Web';
     color: #000; }
-  /* line 17, ../sass/base/_header.scss */
+    @media (min-width: 768px) {
+      /* line 16, ../sass/base/_header.scss */
+      header .logo-header {
+        font-size: 75px; } }
+  /* line 25, ../sass/base/_header.scss */
   header .pulse {
     animation-name: pulse_animation;
     animation-duration: 5000ms;
@@ -139,7 +157,7 @@ main {
     padding: 80px 0; }
     /* line 7, ../sass/base/_main.scss */
     main section .section-header {
-      font-size: 40px; }
+      font: 700 45px/40px 'Titillium Web'; }
   /* line 11, ../sass/base/_main.scss */
   main #files {
     background-color: #474e5d; }
