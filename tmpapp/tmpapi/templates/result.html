@@ -2,27 +2,92 @@
 {% load staticfiles %}
 
 {% block extra_head %}
-    <script src="{% static 'dist/owl-carousel/owl.carousel.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/owl-carousel/owl.carousel.css' %}">
-    <script>
-        $(".owl-carousel").owlCarousel({
-            items: 1,
-            singleItem: true,
-            autoPlay: false,
-            autoHeight: true,
-            navigation: true,
-            pagination: true,
-        });
-    </script>
+    <script src="{% static 'dist/jquery.imagemapster.min.js' %}"></script>
+    {#    <script src="{% static 'dist/owl-carousel/owl.carousel.min.js' %}"></script>#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'dist/owl-carousel/owl.carousel.css' %}">#}
+    {#    <script>#}
+    {#        $(".owl-carousel").owlCarousel({#}
+    {#            items: 1,#}
+    {#            singleItem: true,#}
+    {#            autoPlay: false,#}
+    {#            autoHeight: true,#}
+    {#            navigation: true,#}
+    {#            pagination: true,#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}
+<script>
+    var inArea,
+            map = $('#document-map'),
+            captions = {
 
+                paul: ["Paul McCartney - Bass Guitar and Vocals",
+                    "Paul McCartney's song, Yesterday, recently voted the most popular song "
+                    + "of the century by a BBC poll, was initially composed without lyrics. "
+                    + "Paul used the working title 'scrambled eggs' before coming up with the final words."]
+            },
+            single_opts = {
+                fillColor: '000000',
+                fillOpacity: 0,
+                stroke: true,
+                strokeColor: 'ff0000',
+                strokeWidth: 2
+            },
+            all_opts = {
+                fillColor: 'ffffff',
+                fillOpacity: 0.6,
+                stroke: true,
+                strokeWidth: 2,
+                strokeColor: 'ffffff'
+            },
+            initial_opts = {
+                mapKey: 'data-name',
+                isSelectable: false,
+                onMouseover: function (data) {
+                    inArea = true;
+                    $('#clause-caption-header').text(captions[data.key][0]);
+                    $('#clause-caption-text').text(captions[data.key][1]);
+                    $('#clause-caption').show();
+                },
+                onMouseout: function (data) {
+                    inArea = false;
+                    $('#clause-caption').hide();
+                }
+            };
+    opts = $.extend({}, all_opts, initial_opts, single_opts);
+
+    map.mapster('unbind')
+            .mapster(opts)
+            .bind('mouseover', function () {
+                if (!inArea) {
+                    map.mapster('set_options', all_opts)
+                            .mapster('set', true, 'all')
+                            .mapster('set_options', single_opts);
+                }
+            }).bind('mouseout', function () {
+        if (!inArea) {
+            map.mapster('set', false, 'all');
+        }
+    });
+</script>
 {% block main %}
     <section id="results">
         <div class="container wide-container">
             <div class="pages-wrapper owl-carousel">
                 {% for image in images %}
                     <div class="page-wrapper">
-                        <img src="{{ image.path.url }}" alt="Owl Image">
+                        <img src="/{{ image.path }}" alt="document{{ forloop.counter }}" usemap="#document-map">
+                        <map name="document-map">
+                            {% for clause in image.foundclause_set.all %}
+                                <area shape="rect" data-name="paul,all" coords={{ clause.get_ocr_data }} href="#"/>
+                            {% endfor %}
+                        </map>
+                        <div id="Clause-caption"
+                             style="clear:both;border: 1px solid black; width: 400px; padding: 6px; display:none;">
+                            <div id="clause-caption-header"
+                                 style="font-style: italic; font-weight: bold; margin-bottom: 12px;"></div>
+                            <div id="clause-caption-text"></div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
