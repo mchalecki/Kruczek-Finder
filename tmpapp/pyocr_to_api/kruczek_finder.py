@@ -86,7 +86,7 @@ class KruczekFinder:
                 self._category_wrapper(categories),
             )
 
-            old_file_name = "path.split('/')[-1].split('.')[0]"
+            old_file_name = path.split('/')[-1].split('.')[0]
             new_path = 'tmp/{}{}.jpg'.format(old_file_name, i)
             image.save(new_path)
 
