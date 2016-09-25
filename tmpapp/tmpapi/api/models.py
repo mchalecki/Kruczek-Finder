@@ -54,7 +54,7 @@ class Image(models.Model):
     session = models.ForeignKey(
         Session, on_delete=models.CASCADE, null=True
     )
-    path = models.ImageField(upload_to='analysed/')
+    path = models.CharField(max_length=128)
     clauses = models.ManyToManyField(Clause, through='FoundClause')
 
     def __str__(self):
