@@ -71,9 +71,7 @@ class FoundClause(models.Model):
 
     def get_ocr_data(self):
         print(self.ocr_data)
-        start, end = eval(self.ocr_data)[0]
-        p1, p2 = start
-        p3, p4 = end
+        (p1,p2), (p3,p4) = eval(self.ocr_data)[0]
         x1 = min(p1[0], p2[0], p3[0], p4[0])
         y1 = min(p1[1], p2[1], p3[1], p4[1])
         x2 = max(p1[0], p2[0], p3[0], p4[0])
