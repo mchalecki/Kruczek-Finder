@@ -19,6 +19,6 @@ def process_page(indices, page, paragraph_original, phrase_list):
         for sent in page[i: end]:
             sentences.append(sent.content)
         sentences = ' '.join(sentences)
-        ratio = Levenshtein.ratio(str(sentences), str(paragraph_original))
+        ratio = Levenshtein.ratio(str(sentences), str(paragraph_original['postanowienie_wzorca']))
         if ratio > 0.60:
-            indices.append((i, (page[i].position[0], page[end].position[1]), ratio))
+            indices.append((paragraph_original, (page[i].position[0], page[end].position[1])))

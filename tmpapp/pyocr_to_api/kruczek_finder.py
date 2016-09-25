@@ -6,8 +6,9 @@ from .search_text import search_for_phrase
 from .document_marking import DocumentMarking
 from .ocr_processer import OCRProcessor
 from ..tmpdatasource.source import DataSource
+import uuid
+import json
 
-DEFAULT_DATA_SOURCE = DataSource()
 DEFAULT_MARKER = DocumentMarking()
 DEFAULT_OCR_PROCESSOR = OCRProcessor()
 
@@ -15,10 +16,14 @@ DEFAULT_OCR_PROCESSOR = OCRProcessor()
 class KruczekFinder:
     def __init__(
             self,
-            data_source=DEFAULT_DATA_SOURCE,
+            class_found_clause,
+            class_image,
+            data_source,
             marker=DEFAULT_MARKER,
             ocr_processor=DEFAULT_OCR_PROCESSOR,
     ):
+        self.class_image = class_image,
+        self.class_found_clause = class_found_clause,
         self._data_source = data_source
         self._marker = marker
         self._ocr = ocr_processor
@@ -69,37 +74,61 @@ class KruczekFinder:
         return parts_to_mark
 
     def process_file(self, path, categories):
-        images_marked = []
-        colors = {}
+        # images_marked = []
+        # colors = {}
+        data = {}
+        images = []
         for image, page_text in tqdm(self._ocr.process(path)):
+            extension = path.split('.')[-1]
+            new_path = path.replace(extension, uuid.uuid4().hex + '.jpg')
+            image.save(new_path)
+            data[new_path] = []
+
             parts_to_mark = self._process_page(
                 page_text,
                 self._category_wrapper(categories),
             )
-            _image = image
+
+            # _image = image
             phrases = {}
+            data = {}
+            phrase_objects = {}
             for mark_phrase in parts_to_mark:
-                phrase, area, ratio = mark_phrase
-                print('area', area)
-                value = phrases.get(phrase, [])
+                phrase, area = mark_phrase
+                # print('area', area)
+                value = phrases.get(phrase['postanowienie_wzorca'], [])
                 value.append(area)
-                phrases[phrase] = value
+                phrases[phrase['postanowienie_wzorca']] = value
+                phrase_objects[phrase['postanowienie_wzorca']] = phrase
             for key in phrases:
                 reduced = self.reduce_areas(phrases[key])
-                print('reduced', reduced)
+                # print('reduced', reduced)
                 for area in reduced:
-                    print(area)
-                    if key not in colors:
-                        r = lambda: random.randint(0, 255)
-                        colors[key] = (r(), r(), r())
-                    _image = self._marker.mark(
-                        image_object=_image,
-                        position=area,
-                        color=colors[key],
-                    )
-            images_marked.append(_image)
-            _image.show()
-        return images_marked
+                    # print(area)
+                    # if key not in colors:
+                    #     r = lambda: random.randint(0, 255)
+                    #     colors[key] = (r(), r(), r())
+                    # _image = self._marker.mark(
+                    #     image_object=_image,
+                    #     position=area,
+                    #     color=colors[key],
+                    # )
+                    value = data.get(new_path, {})
+                    value_dict = value.get(key, [])
+                    value_dict.append(area)
+            for path in value:
+                img = self.class_image(path=path)
+                img.save()
+                images.append(img)
+                clauses_raw = value[path]
+                for clause_name in clauses_raw:
+                    clause = phrase_objects[clause_name]
+                    positions = clauses_raw[clause_name]
+                    self.class_found_clause(clause, img, json.dumps(positions)).save()
+
+                    # images_marked.append(_image)
+                    # _image.show()
+        return images
 
     def _category_wrapper(self, category):
         if isinstance(category, list) or isinstance(category, tuple):
