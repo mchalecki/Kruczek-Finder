@@ -2,7 +2,7 @@ import pytest
 import pyocr
 from time import time
 
-from ocr_processer import OCRProcesser
+from tmpapp.pyocr_to_api.ocr_processer import OCRProcesser
 
 TOOLS = pyocr.get_available_tools()[0]
 
