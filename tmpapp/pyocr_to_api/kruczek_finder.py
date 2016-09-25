@@ -93,13 +93,14 @@ class KruczekFinder:
             phrases = {}
             data = {}
             phrase_objects = {}
+            value = []
             for mark_phrase in parts_to_mark:
                 phrase, area = mark_phrase
                 # print('area', area)
-                value = phrases.get(phrase['postanowienie_wzorca'], [])
+                value = phrases.get(phrase.postanowienie_wzorca, [])
                 value.append(area)
-                phrases[phrase['postanowienie_wzorca']] = value
-                phrase_objects[phrase['postanowienie_wzorca']] = phrase
+                phrases[phrase.postanowienie_wzorca] = value
+                phrase_objects[phrase.postanowienie_wzorca] = phrase
             for key in phrases:
                 reduced = self.reduce_areas(phrases[key])
                 # print('reduced', reduced)

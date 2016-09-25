@@ -5,6 +5,8 @@ import uuid
 from django.conf import settings
 from django import db
 
+from tmpapp.pyocr_to_api.kruczek_finder import KruczekFinder 
+
 
 class ProcessorMock(object):
     """
@@ -37,8 +39,16 @@ class DocumentsHandler(object):
     def tmp_dir(self):
         return settings.TMP_DIR
 
-    def get_procsser_instance(self):
-        return ProcessorMock()
+    def get_finder_instance(self):
+        """
+        Avoiding recursive import
+        """
+        from .models import Clause, FoundClause, Image
+
+        datasource = Clause.objects
+        return KruczekFinder(
+            FoundClause, Image, datasource
+        )
 
     def get_tmp_name(self, fname):
         """
@@ -65,9 +75,11 @@ class DocumentsHandler(object):
         Callable that handles single file.
         Executed by multiprocessing worker.
         """
-        processer = self.get_procsser_instance()
-        processing_result = processer.process(file, categories)
-        result.extend(processing_result)
+        finder = self.get_finder_instance()
+        finder_result = finder.process_file(file, categories)
+        from pprint import pprint
+        pprint(finder_result)
+        result.extend(finder_result)
 
     def _run(self):
         """

@@ -4,6 +4,8 @@ from uuid import uuid4
 from django.db import models
 from django.template.defaultfilters import slugify
 
+from .managers import ClausesManager
+
 
 class ClauseCategory(models.Model):
     slug = models.SlugField()
@@ -18,15 +20,18 @@ class ClauseCategory(models.Model):
 
 
 class Clause(models.Model):
-    data_wydania = models.DateField()
+    data_wydania = models.DateField(null=True)
     sygnatura_akt = models.CharField(max_length=40)
     nazwa_i_siedziba_sadu_ktory_wydal_wyrok = models.CharField(max_length=100)
     powod = models.CharField(max_length=100)
     pozwani = models.CharField(max_length=100)
     postanowienie_wzorca = models.TextField()
-    data_dokonania_wpisu = models.DateField()
-    uwagi = models.TextField()
-    branza = models.ForeignKey(ClauseCategory)
+    data_dokonania_wpisu = models.DateField(null=True)
+    uwagi = models.TextField(null=True)
+
+    category = models.ForeignKey(ClauseCategory)
+
+    objects = ClausesManager()
 
 
 class Session(models.Model):
@@ -51,6 +56,9 @@ class Image(models.Model):
     )
     path = models.CharField(max_length=128)
     clauses = models.ManyToManyField(Clause, through='FoundClause')
+
+    def __str__(self):
+        return "Image: %s, FoundClauses: %d" % (self.path, self.clauses.count())
 
 
 class FoundClause(models.Model):
