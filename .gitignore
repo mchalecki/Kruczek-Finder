@@ -11,3 +11,5 @@ media/
 secrets.json
 uploaded/
 tmp/
+.idea
+secrets.json
