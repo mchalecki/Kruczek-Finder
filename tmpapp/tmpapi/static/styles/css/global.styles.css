@@ -165,6 +165,19 @@ main {
   main #contact {
     background-color: #1abc9c; }
 
+/* line 1, ../sass/base/_thanks.scss */
+#thanks {
+  background-color: #d0d0d0;
+  color: #000; }
+  /* line 5, ../sass/base/_thanks.scss */
+  #thanks p {
+    font-size: 24px; }
+  /* line 8, ../sass/base/_thanks.scss */
+  #thanks .email {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2em; }
+
 /* No files to import found in components/**\/* */
 
 /*# sourceMappingURL=global.styles.css.map */

@@ -1,99 +1,62 @@
-{% load staticfiles %}
-<html>
-<head>
-	<title>KruczekFinder - Sprawdź swoją umowę!</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'base.html' %}
 
-	<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"/>
-
-	<script src="{% static 'dist/jquery-3.1.1.min.js' %}"></script>
-	<script src="{% static 'dist/bootstrap/js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'dist/select2/js/select2.min.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
-
-	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="{% static 'dist/bootstrap/css/bootstrap.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'dist/select2/css/select2.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.normalize.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.styles.css' %}">
-</head>
-
-<body>
-	<header>
-		<div class="container text-center">
-			<a class="slide-down-anchor" data-href="#files">
-				<img class="logo" src="{% static 'img/logo.png' %}">
-				<h1 class="logo-header">KruczekFinder</h1>
-			</a>
-		</div>
-	</header>
-
-	<main>
-		<form method="POST" action="" enctype="multipart/form-data">
-		{% csrf_token %}
-			<section id="files">
-				<div class="container">
-					<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-						<h1 class="section-header">
-							Krok 1: Dodaj pliki swojej umowy
-						</h1>
-						<div class="formset-content">
-							<div class="management-form">
-								{{ formset.management_form }}
-							</div>
-							<div class="dynamic-forms">
-								{% for form in formset %}
-									<div class="inserted-form">
-										<h2>Plik <span class="form-order">#1</h2>
-										<div class="file-input-wrapper">
-											<input type="text" class="preview-input" disabled>
-											<label>
-												{{ form.document }}
-												Wybierz plik..<span class="glyphicon glyphicon-folder-open">
-											</label>
-										</div>
-										<div class="categories-input-wrapper">
-											<label for="{{ form.categories.id_for_label }}">Wybierz kategorię umowy:</label>
-											{{ form.categories }}
-										</div>
+{% block main %}
+	<form method="POST" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+		<section id="files">
+			<div class="container">
+				<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+					<h1 class="section-header">
+						Krok 1: Dodaj pliki swojej umowy
+					</h1>
+					<div class="formset-content">
+						<div class="management-form">
+							{{ formset.management_form }}
+						</div>
+						<div class="dynamic-forms">
+							{% for form in formset %}
+								<div class="inserted-form">
+									<h2>Plik <span class="form-order">#1</h2>
+									<div class="file-input-wrapper">
+										<input type="text" class="preview-input" disabled>
+										<label>
+											{{ form.document }}
+											Wybierz plik..<span class="glyphicon glyphicon-folder-open">
+										</label>
 									</div>
-								{% endfor %}
-							</div>
+									<div class="categories-input-wrapper">
+										<label for="{{ form.categories.id_for_label }}">Wybierz kategorię umowy:</label>
+										{{ form.categories }}
+									</div>
+								</div>
+							{% endfor %}
 						</div>
-						<div class="actions">
-							<button type="button" class="btn btn-success" id="add-button">
-								<span class="glyphicon glyphicon-plus"></span> 
-								Dodaj kolejny plik
-							</button>
-							<button type="button" class="btn btn-danger" id="remove-button">
-								<span class="glyphicon glyphicon-remove"></span> 
-								Usuń ostatni
-							</button>
-						</div>
-
-						
+					</div>
+					<div class="actions">
+						<button type="button" class="btn btn-success" id="add-button">
+							<span class="glyphicon glyphicon-plus"></span> 
+							Dodaj kolejny plik
+						</button>
+						<button type="button" class="btn btn-danger" id="remove-button">
+							<span class="glyphicon glyphicon-remove"></span> 
+							Usuń ostatni
+						</button>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section id="contact">
-				<div class="container">
-					<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-						<h1 class="section-header">
-							Krok 2: Uzupełnij formularz
-						</h1>
-						<h2>Dane kontaktowe</h2>
-						{{ form.as_p }}
-						<input type="submit" value="Wyślij">
-					</div>
+		<section id="contact">
+			<div class="container">
+				<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+					<h1 class="section-header">
+						Krok 2: Uzupełnij formularz
+					</h1>
+					<h2>Dane kontaktowe</h2>
+					{{ form.as_p }}
+					<input type="submit" value="Wyślij">
 				</div>
-			</section>
-		</form>
-	</main>
-
-	<footer>
-		<p class="credentials text-center">&copy; TmpTeam #danepubliczne 2016</p> 
-	</footer>
-</body>
-</html>
+			</div>
+		</section>
+	</form>
+{% endblock %}

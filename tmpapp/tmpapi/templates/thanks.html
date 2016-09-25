@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_head %}
+	<script>
+		$(function() {
+			$('html, body').animate({
+	            scrollTop: $('#thanks').offset().top
+	          }, 1000);
+		});
+	</script>
+{% endblock %}
+
+{% block logo %}
+	<a href="{% url 'home' %}">
+		<img class="logo" src="{% static 'img/logo.png' %}">
+		<h1 class="logo-header">KruczekFinder</h1>
+	</a>
+{% endblock %}
+
+{% block main %}
+	<section id="thanks">
+		<div class="container">
+			<div class="col-sm-8 col-sm-offset-2">
+				<h1 class="section-header">
+					Krok 3: Poczekaj na odpowiedź.
+				</h1>
+				<p>
+					Na adres <span class="email">{{ email }}</span> zostanie wysłana wiadomość zawierająca wynik analizy Twojej umowy.
+					Czas oczekiwania nie powinien przekroczyć 5 minut.<br><br>
+					W przypadku nieotrzymania wiadomości prosimy, skontaktuj się z nami.
+				</p>
+			</div>
+		</div>
+	</section>
+{% endblock %}

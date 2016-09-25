@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title>KruczekFinder - Sprawdź swoją umowę!</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"/>
+
+	<script src="{% static 'dist/jquery-3.1.1.min.js' %}"></script>
+	<script src="{% static 'dist/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'dist/select2/js/select2.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/select2/css/select2.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.normalize.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/css/global.styles.css' %}">
+
+	{% block extra_head %}
+	{% endblock %}
+</head>
+
+<body>
+	<header>
+		<div class="container text-center">
+			{% block logo %}
+				<a class="slide-down-anchor" data-href="#files">
+					<img class="logo pulse" src="{% static 'img/logo.png' %}">
+					<h1 class="logo-header">KruczekFinder</h1>
+				</a>
+			{% endblock %}
+		</div>
+	</header>
+
+	<main>
+		{% block main %}{% endblock %}
+	</main>
+
+	<footer>
+		<p class="credentials text-center">&copy; TmpTeam #danepubliczne 2016</p> 
+	</footer>
+</body>
+</html>

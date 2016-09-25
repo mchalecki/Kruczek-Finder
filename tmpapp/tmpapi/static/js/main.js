@@ -2,12 +2,16 @@ $(function() {
 	'use strict';
 
     /* SLIDE DOWNS */
-    $('.slide-down-anchor').on('click', function(event) {
-        event.preventDefault();
-        var target = $($(this).data('href'));
+    function slideDown(target) {
         $('html, body').animate({
             scrollTop: target.offset().top
           }, 500);
+    }
+
+    $('.slide-down-anchor').on('click', function(event) {
+        event.preventDefault();
+        var target = $($(this).data('href'));
+        slideDown(target);
     });
 
     /* FORMSETS */
