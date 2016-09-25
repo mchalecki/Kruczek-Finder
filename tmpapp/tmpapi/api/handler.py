@@ -70,16 +70,14 @@ class DocumentsHandler(object):
 
         return fpath
 
-    def handle_file(self, file, categories, result):
+    def handle_file(self, file, categories):
         """
         Callable that handles single file.
         Executed by multiprocessing worker.
         """
         finder = self.get_finder_instance()
         finder_result = finder.process_file(file, categories)
-        from pprint import pprint
-        pprint(finder_result)
-        result.extend(finder_result)
+        return finder_result
 
     def _run(self):
         """
@@ -90,17 +88,8 @@ class DocumentsHandler(object):
         workers = []
         results = []
         for file, categories in self.user_files:
-            result = manager.list()
+            result = self.handle_file(file, categories)
             results.append(result)
-            worker = Process(
-                target=self.handle_file, args=(file, categories, result)
-            )
-            workers.append(worker)
-            worker.start()
-        # join all the workers
-        for worker in workers:
-            worker.join()
-        # and handle results
         self.handle_results(results)
 
     def handle_results(self, results):
