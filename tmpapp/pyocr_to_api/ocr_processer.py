@@ -55,19 +55,3 @@ class OCRProcessor:
 
     def _get_file_extension(self, data_file):
         return data_file.split('.')[-1]
-
-
-if __name__ == '__main__':
-    from time import time
-
-    res = dict()
-    for tool in pyocr.get_available_tools():
-        ocrp = OCRProcessor(tool)
-        now = time()
-        text = ocrp.process('sample_files/skan0002.gif')
-        res[str(tool)] = (time() - now) / 60.0
-        # print('Processing time: ', res[str(tool)])
-        # print('TEST:\n', text)
-
-    for key, time in res.items():
-        print(key, '\t\t', time)
