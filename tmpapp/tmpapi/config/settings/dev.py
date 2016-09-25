@@ -12,8 +12,8 @@ DATABASES = {
 }
 
 # Media files
-MEDIA_ROOT = BASE_DIR.child("media")
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.child("tmp")
+MEDIA_URL = '/tmp/'
 
 # Mailing
 EMAIL_USE_TLS = True

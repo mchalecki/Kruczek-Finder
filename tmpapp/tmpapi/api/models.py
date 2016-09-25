@@ -68,3 +68,11 @@ class FoundClause(models.Model):
     clause = models.ForeignKey(Clause, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
     ocr_data = models.TextField()
+
+    def get_ocr_data(self):
+        (p1,p2), (p3,p4) = eval(self.ocr_data)[0]
+        x1 = min(p1[0], p2[0], p3[0], p4[0])
+        y1 = min(p1[1], p2[1], p3[1], p4[1])
+        x2 = max(p1[0], p2[0], p3[0], p4[0])
+        y2 = max(p1[1], p2[1], p3[1], p4[1])
+        return ("%d,%d,%d,%d" % (x1, y1, x2, y2))

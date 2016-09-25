@@ -2,28 +2,64 @@
 {% load staticfiles %}
 
 {% block extra_head %}
-	<script src="{% static 'dist/owl-carousel/owl.carousel.min.js' %}"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'dist/owl-carousel/owl.carousel.css' %}">
-	<script>
-		$(".owl-carousel").owlCarousel({
-	        items: 1,
-	        singleItem: true,
-	        autoPlay: false,
-	        autoHeight: true,
-	        navigation: true,
-	        pagination: true,
-	    });
-	</script>
+    <script src="{% static 'dist/owl-carousel/owl.carousel.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/owl-carousel/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/owl-carousel/owl.theme.css' %}">
+    <script src="{% static 'dist/jquery.imagemapster.min.js' %}"></script>
+    <script>
+        $(function() {
+            $(".carousel").owlCarousel({
+                items: 1,
+                singleItem: true,
+                autoPlay: false,
+                navigation: true,
+                pagination: true,
+                navigationText: ['wstecz', 'dalej']
+            });
+        });
+    </script>
+    <script src="{% static 'js/results.js' %}"></script>
 {% endblock %}
 
 {% block main %}
-<section id="results">
-	<div class="container wide-container">
-		<div class="pages-wrapper owl-carousel">
-			{% for image in images %}
-				<div class="page-wrapper">
-				</div>
-			{% endfor %}
-		</div>
-	</div>
+    <section id="results">
+        <div class="container wide-container">
+            <div class="pages-wrapper carousel">
+                {% for image in images %}
+                    <div class="page-wrapper">
+                        <h1>Strona #{{ forloop.counter }}</h1>
+                        <div class="row">
+                            <div class="col-md-6 image-col">
+                                <img src="/{{ image.path }}" class="map-image" usemap="#document-map{{ forloop.counter }}">
+                                <map name="document-map{{ forloop.counter }}" id="document-map{{ forloop.counter }}">
+                                    {% for clause in image.foundclause_set.all %}
+                                        <area shape="rect" data-name="{{ clause.clause.id }}, all" data-clause="{{ clause.clause.id }}" coords={{ clause.get_ocr_data }} href="#"/>
+                                    {% endfor %}
+                                </map>
+                            </div>
+                            <div class="col-md-6 clauses-col">
+                                {% for clause in image.foundclause_set.all %}
+                                    <div class="clause" data-clause="{{ clause.clause.id }}">
+                                        {% with clause=clause.clause %}
+                                        <h1>Uwaga! Ten fragment może być niebezpieczny!</h1>
+                                        <hr>
+                                        <p class="lead">
+                                            Zaznaczony wycinek do złudzenia przypomina tekst poniższej klauzuli, uznanej za niedozwoloną.
+                                        </p>
+                                        <div class="clause-content">
+                                            <label>Tekst klauzuli:</label>
+                                            <p class="pattern">
+                                                {{ clause.postanowienie_wzorca }}
+                                            </p>
+                                        </div>
+
+                                        {% endwith %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 {% endblock %}

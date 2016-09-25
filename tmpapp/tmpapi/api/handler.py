@@ -3,6 +3,7 @@ import os
 import uuid
 
 from django.conf import settings
+from django.core.mail import send_mail
 from django import db
 
 from .models import Session
@@ -24,11 +25,12 @@ class DocumentsHandler(object):
     Handler for documents obtained from users.
     """
 
-    def __init__(self, email, documents):
+    def __init__(self, email, documents, domain):
         """
         Handle email and files obtained from user.
         """
         self.user_email = email
+        self.domain = domain
         # temporary save files
         if not os.path.exists(self.tmp_dir):
             os.makedirs(self.tmp_dir)
@@ -99,7 +101,7 @@ class DocumentsHandler(object):
         Return results to ResultsHandler
         """
         results = [list(r) for r in results]
-        results_handler = ResultsHandler(results, self.user_email)
+        results_handler = ResultsHandler(results, self.user_email, self.domain)
         results_handler.process_results()
 
     def process_files(self):
@@ -116,14 +118,33 @@ class ResultsHandler(object):
     Handler for results received from OCR.
     """
 
-    def __init__(self, results, email):
+    def __init__(self, results, email, domain):
         self.results = results
         self.email = email
+        self.domain = domain
         self.session = Session.objects.create()
+
+    def get_url(self):
+        return 'http://'+os.path.join(self.domain, self.session.token)
+
+    def send_mail(self):
+        send_mail(
+            subject="KruczekFinder - wyniki analizy",
+            message="""
+                Witaj!
+                Dziękujemy za skorzystanie z usługi KruczekFinder.
+                Wyniki analizy swojej umowy znajdziesz pod adresem:
+                %s
+            """ % (self.get_url()),
+            from_email='info@kruczekfinder.pl',
+            recipient_list=[self.email],
+            fail_silently=True,
+
+        )
 
     def process_results(self):
         for images in self.results:
             for image in images:
                 image.session = self.session
                 image.save()
-        print(self.session.token)
+        self.send_mail()

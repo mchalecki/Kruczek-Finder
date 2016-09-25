@@ -4,9 +4,11 @@
 {% block extra_head %}
 	<script>
 		$(function() {
-			$('html, body').animate({
-	            scrollTop: $('#thanks').offset().top
-	          }, 1000);
+			setTimeout(function() {
+				$('html, body').animate({
+		            scrollTop: $('#thanks').offset().top
+		          }, 1000);
+			}, 1000);
 		});
 	</script>
 {% endblock %}
@@ -27,7 +29,7 @@
 				</h1>
 				<p>
 					Na adres <span class="email">{{ email }}</span> zostanie wysłana wiadomość zawierająca wynik analizy Twojej umowy.
-					Czas oczekiwania nie powinien przekroczyć 5 minut.<br><br>
+					Czas oczekiwania nie powinien przekroczyć 3 minut.<br><br>
 					W przypadku nieotrzymania wiadomości prosimy, skontaktuj się z nami.
 				</p>
 			</div>
