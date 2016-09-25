@@ -52,7 +52,7 @@ class Session(models.Model):
 
 class Image(models.Model):
     session = models.ForeignKey(
-        Session, on_delete=models.CASCADE
+        Session, on_delete=models.CASCADE, null=True
     )
     path = models.CharField(max_length=128)
     clauses = models.ManyToManyField(Clause, through='FoundClause')
