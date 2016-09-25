@@ -172,10 +172,17 @@ main {
 
 /* line 1, ../sass/base/_results.scss */
 #results {
-  background-color: #d0d0d0; }
-  /* line 3, ../sass/base/_results.scss */
+  background-color: #d0d0d0;
+  padding-top: 0; }
+  /* line 4, ../sass/base/_results.scss */
   #results .page-wrapper {
-    padding: 100px 0; }
+    padding: 50px 0; }
+  /* line 8, ../sass/base/_results.scss */
+  #results .image-col {
+    border-right: 1px solid #333; }
+  /* line 12, ../sass/base/_results.scss */
+  #results .clause {
+    display: none; }
 
 /* line 1, ../sass/base/_thanks.scss */
 #thanks {
