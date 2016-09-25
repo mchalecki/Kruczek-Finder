@@ -33,11 +33,11 @@
                                 <img src="/{{ image.path }}" class="map-image" usemap="#document-map{{ forloop.counter }}">
                                 <map name="document-map{{ forloop.counter }}" id="document-map{{ forloop.counter }}">
                                     {% for clause in image.foundclause_set.all %}
-                                        <area shape="rect" data-name="all" data-clause="{{ clause.clause.id }}" coords={{ clause.get_ocr_data }} href="#"/>
+                                        <area shape="rect" data-name="{{ clause.clause.id }}, all" data-clause="{{ clause.clause.id }}" coords={{ clause.get_ocr_data }} href="#"/>
                                     {% endfor %}
                                 </map>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 clauses-col">
                                 {% for clause in image.foundclause_set.all %}
                                     <div class="clause" data-clause="{{ clause.clause.id }}">
                                         {% with clause=clause.clause %}

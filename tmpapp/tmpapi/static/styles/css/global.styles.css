@@ -182,7 +182,15 @@ main {
     border-right: 1px solid #333; }
   /* line 12, ../sass/base/_results.scss */
   #results .clause {
-    display: none; }
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #666;
+    margin-bottom: 20px;
+    background-color: #474e5d; }
+    /* line 19, ../sass/base/_results.scss */
+    #results .clause:hover {
+      background-color: #1abc9c;
+      cursor: pointer; }
 
 /* line 1, ../sass/base/_thanks.scss */
 #thanks {
