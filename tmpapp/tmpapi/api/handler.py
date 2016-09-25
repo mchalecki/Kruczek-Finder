@@ -5,7 +5,9 @@ import uuid
 from django.conf import settings
 from django import db
 
-from tmpapp.pyocr_to_api.kruczek_finder import KruczekFinder 
+from .models import Session
+
+from tmpapp.pyocr_to_api.kruczek_finder import KruczekFinder
 
 
 class ProcessorMock(object):
@@ -14,7 +16,7 @@ class ProcessorMock(object):
     """
 
     def process(self, fname, categories):
-        return [1,2]
+        return [1, 2]
 
 
 class DocumentsHandler(object):
@@ -113,12 +115,15 @@ class ResultsHandler(object):
     """
     Handler for results received from OCR.
     """
+
     def __init__(self, results, email):
         self.results = results
         self.email = email
+        self.session = Session.objects.create()
 
     def process_results(self):
-        from pprint import pprint
-        pprint(self.results)
-
-
+        for images in self.results:
+            for image in images:
+                image.session = self.session
+                image.save()
+        print(self.session.token)
