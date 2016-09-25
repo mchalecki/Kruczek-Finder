@@ -4,7 +4,7 @@ from django.views.generic import FormView, TemplateView
 
 from .forms import CredentialsForm, DocumentsFormset
 from .handler import DocumentsHandler
-from .models import Session
+from .models import Image, Session
 
 
 class MainView(FormView):
@@ -80,8 +80,9 @@ class ResultView(TemplateView):
     def get(self, *args, **kwargs):
         session = get_object_or_404(Session, token=kwargs.pop('token'))
         try:
-            images = session.images.all()
+            images = Image.objects.filter(session=session)
         except AttributeError:
+            print("no")
             images = []
 
         return self.render_to_response(
