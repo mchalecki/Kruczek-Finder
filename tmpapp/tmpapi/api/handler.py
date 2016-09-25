@@ -5,7 +5,9 @@ import uuid
 from django.conf import settings
 from django import db
 
-from tmpapp.pyocr_to_api.kruczek_finder import KruczekFinder 
+from .models import Session
+
+from tmpapp.pyocr_to_api.kruczek_finder import KruczekFinder
 
 
 class ProcessorMock(object):
@@ -14,7 +16,7 @@ class ProcessorMock(object):
     """
 
     def process(self, fname, categories):
-        return [1,2]
+        return [1, 2]
 
 
 class DocumentsHandler(object):
@@ -70,16 +72,14 @@ class DocumentsHandler(object):
 
         return fpath
 
-    def handle_file(self, file, categories, result):
+    def handle_file(self, file, categories):
         """
         Callable that handles single file.
         Executed by multiprocessing worker.
         """
         finder = self.get_finder_instance()
         finder_result = finder.process_file(file, categories)
-        from pprint import pprint
-        pprint(finder_result)
-        result.extend(finder_result)
+        return finder_result
 
     def _run(self):
         """
@@ -90,17 +90,8 @@ class DocumentsHandler(object):
         workers = []
         results = []
         for file, categories in self.user_files:
-            result = manager.list()
+            result = self.handle_file(file, categories)
             results.append(result)
-            worker = Process(
-                target=self.handle_file, args=(file, categories, result)
-            )
-            workers.append(worker)
-            worker.start()
-        # join all the workers
-        for worker in workers:
-            worker.join()
-        # and handle results
         self.handle_results(results)
 
     def handle_results(self, results):
@@ -124,12 +115,15 @@ class ResultsHandler(object):
     """
     Handler for results received from OCR.
     """
+
     def __init__(self, results, email):
         self.results = results
         self.email = email
+        self.session = Session.objects.create()
 
     def process_results(self):
-        from pprint import pprint
-        pprint(self.results)
-
-
+        for images in self.results:
+            for image in images:
+                image.session = self.session
+                image.save()
+        print(self.session.token)
