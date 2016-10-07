@@ -136,9 +136,9 @@ class ResultsHandler(object):
                 Wyniki analizy swojej umowy znajdziesz pod adresem:
                 %s
             """ % (self.get_url()),
-            from_email='info@kruczekfinder.pl',
+            from_email='kruczekfinder@mail.com',
             recipient_list=[self.email],
-            fail_silently=True,
+            fail_silently=False,
 
         )
 
